@@ -22,6 +22,11 @@ const routes = [
     path: '/postvideo',
     name: 'PostVideo',
     component: () => import('../views/PostVideo')
+  },
+  {
+    path: '/video/:videoID',
+    name: 'showVideo',
+    component: () => import('../views/ShowVideo')
   }
 ]
 

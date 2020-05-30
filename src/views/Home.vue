@@ -6,7 +6,7 @@
         v-for="video in videos"
         :key="video.id"
       >
-        <el-card :body-style="{ padding: '0px' }" class="card">
+        <el-card class="card" @click.native="goVideo(video)">
           <img
             src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
             class="image"
@@ -38,6 +38,9 @@ export default {
     async load () {
       var res = await API.getVideos()
       this.videos = res.data
+    },
+    goVideo (video) {
+      this.$router.push({ name: 'showVideo', params: { videoID: video.id } })
     }
   },
   beforeMount () {
@@ -60,5 +63,8 @@ export default {
   color: #909399;
   margin: 4px;
   /* width: 90%; */
+}
+.card {
+  cursor: pointer;
 }
 </style>

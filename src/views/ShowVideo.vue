@@ -18,25 +18,45 @@ import 'video.js/dist/video-js.css'
 
 import { videoPlayer } from 'vue-video-player'
 
+import * as API from '@/api/video'
+
 export default {
   name: 'ShowVideo',
   data () {
     return {
+      video: {},
       playerOptions: {
         muted: false,
         fluid: true,
         sources: [{
           type: 'video/mp4',
-          src: 'https://cdn.theguardian.tv/webM/2015/07/20/150716YesMen_synd_768k_vp8.webm'
+          src: ''
         }]
       }
     }
   },
   methods: {
+    async load () {
+      console.log(this.$route.params.videoID)
+      try {
+        var res = await API.getVideo(this.$route.params.videoID)
+        console.log(11111111111111111111111111)
+        console.log(res)
+        this.video = res.data
+        this.playerOptions.sources[0].src = this.video.video_url
+      } catch (err) {
+        this.$notify.error({
+          title: '投稿失败，网络或服务器错误',
+          message: err
+        })
+      }
+    }
   },
   components: {
-    // eslint-disable-next-line vue/no-unused-components
     videoPlayer
+  },
+  beforeMount () {
+    this.load()
   }
 }
 </script>

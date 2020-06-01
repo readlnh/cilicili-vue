@@ -6,8 +6,11 @@ const getVideo = id => axios.get(`/api/v1/video/${id}`, id).then(res => res.data
 
 const getVideos = () => axios.get('/api/v1/videos').then(res => res.data)
 
+const postUploadToken = () => axios.post('/api/v1/upload/token').then(res => res.data)
+
 export {
   postVideo,
   getVideo,
-  getVideos
+  getVideos,
+  postUploadToken
 }
